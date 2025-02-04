@@ -1,0 +1,315 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.container h1 {
+  margin-bottom: 2rem;
+  color: #2d3748;
+}
+
+.reservationContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.reservationForm {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #4a5568;
+  font-weight: 500;
+}
+
+.formGroup input,
+.formGroup textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+.formGroup textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.typeButtons {
+  display: flex;
+  gap: 1rem;
+}
+
+.typeButton {
+  flex: 1;
+  padding: 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.5rem;
+  background: white;
+  color: #4a5568;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.typeButton:hover {
+  background: #f7fafc;
+}
+
+.typeButton.active {
+  border-color: #4299e1;
+  background: #ebf8ff;
+  color: #2b6cb0;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 1rem;
+  background: #48bb78;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submitButton:hover {
+  background: #38a169;
+}
+
+.orderSummary {
+  background: white;
+  height: fit-content;
+  padding: 2rem;
+  border-radius: 1rem;
+  color: #000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.selectedDishes {
+  margin: 1.5rem 0;
+}
+
+.dishItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.dishItem:last-child {
+  border-bottom: none;
+}
+
+.dishInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dishName {
+  font-weight: 500;
+  color: #2d3748;
+}
+
+.dishQuantity {
+  color: #718096;
+}
+
+.dishPrice {
+  font-weight: 600;
+  color: #4299e1;
+}
+
+.summaryDetails {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 2px solid #e2e8f0;
+}
+
+.summaryLine {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  color: #4a5568;
+}
+
+.totalLine {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px solid #e2e8f0;
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: #2d3748;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modalContent h2 {
+  margin-bottom: 1.5rem;
+  color: #2d3748;
+}
+
+.modalSummary {
+  margin-top: 1.5rem;
+}
+
+.modalDishes {
+  margin-top: 1.5rem;
+  background: #f8fafc;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.modalDishItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  color: #1a202c;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.modalDishItem:last-child {
+  border-bottom: none;
+}
+
+.modalTotal {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 2px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  color: #1a202c;
+  font-size: 1.1rem;
+}
+
+.reservationDetails h3,
+.modalDishes h3 {
+  color: #1a202c;
+  margin-bottom: 1rem;
+}
+
+.reservationDetails p {
+  color: #1a202c;
+  margin: 0.5rem 0;
+}
+
+.emptyOrder {
+  text-align: center;
+  padding: 2rem;
+  background: #f8fafc;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+}
+
+.emptyOrder p {
+  color: #1a202c;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.menuButton {
+  background: #4f46e5;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  box-shadow: 0 2px 4px rgba(79, 70, 229, 0.1);
+}
+
+.menuButton:hover {
+  background: #4338ca;
+}
+
+.modalActions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.cancelButton,
+.confirmButton {
+  flex: 1;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cancelButton {
+  background: white;
+  border: 1px solid #e2e8f0;
+  color: #4a5568;
+}
+
+.cancelButton:hover {
+  background: #f7fafc;
+}
+
+.confirmButton {
+  background: #48bb78;
+  border: none;
+  color: white;
+}
+
+.confirmButton:hover {
+  background: #38a169;
+}
+
+@media (max-width: 768px) {
+  .reservationContent {
+    grid-template-columns: 1fr;
+  }
+
+  .typeButtons {
+    flex-direction: column;
+  }
+
+  .modalContent {
+    width: 95%;
+    margin: 1rem;
+  }
+}

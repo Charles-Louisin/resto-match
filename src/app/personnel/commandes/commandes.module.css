@@ -1,0 +1,247 @@
+.container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 5rem;
+}
+
+.container h1 {
+  color: #2d3748;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.ordersGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.orderCard {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.orderHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.orderNumber {
+  color: #2d3748;
+  font-weight: 600;
+}
+
+.orderStatus {
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.status-pending {
+  background-color: #feebc8;
+  color: #c05621;
+}
+
+.status-preparing {
+  background-color: #bee3f8;
+  color: #2b6cb0;
+}
+
+.status-ready {
+  background-color: #c6f6d5;
+  color: #2f855a;
+}
+
+.status-delivered {
+  background-color: #e2e8f0;
+  color: #4a5568;
+}
+
+.orderItems {
+  margin-bottom: 1rem;
+}
+
+.orderItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.orderItem:last-child {
+  border-bottom: none;
+}
+
+.itemName {
+  color: #4a5568;
+}
+
+.itemQuantity {
+  color: #718096;
+  font-size: 0.875rem;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.actionButton {
+  flex: 1;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.updateButton {
+  background-color: #4299e1;
+  color: white;
+}
+
+.updateButton:hover {
+  background-color: #3182ce;
+}
+
+.filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.filterButton {
+  padding: 0.5rem 1rem;
+  border: 2px solid #2d3748;
+  background: none;
+  color: #2d3748;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filterButton.active {
+  background-color: #2d3748;
+  color: white;
+}
+
+.cardBody {
+  padding: 1rem;
+}
+
+.customerInfo {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.customerInfo p {
+  margin: 0.5rem 0;
+  color: #4a5568;
+}
+
+.items {
+  margin-bottom: 1rem;
+}
+
+.items h4 {
+  color: #2d3748;
+  margin-bottom: 0.5rem;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  color: #4a5568;
+}
+
+.total {
+  text-align: right;
+  font-size: 1.1rem;
+  color: #2d3748;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.cardActions {
+  padding: 1rem;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.prepareButton,
+.readyButton,
+.deliverButton,
+.cancelButton {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  font-weight: 500;
+  min-width: 120px;
+}
+
+.prepareButton {
+  background-color: #3182ce;
+  color: white;
+}
+
+.readyButton {
+  background-color: #48bb78;
+  color: white;
+}
+
+.deliverButton {
+  background-color: #805ad5;
+  color: white;
+}
+
+.cancelButton {
+  background-color: #f56565;
+  color: white;
+}
+
+.prepareButton:hover,
+.readyButton:hover,
+.deliverButton:hover,
+.cancelButton:hover {
+  opacity: 0.9;
+}
+
+.loading {
+  text-align: center;
+  color: #4a5568;
+  padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .ordersGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .cardActions {
+    flex-direction: column;
+  }
+}
