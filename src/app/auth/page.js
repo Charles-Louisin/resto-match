@@ -54,11 +54,12 @@ export default function Auth() {
         };
         login(userData);
         
-        // Redirection vers la page d'accueil dans tous les cas
-        const redirectTo = searchParams.get('redirectTo');
-        if (redirectTo) {
-          router.push(redirectTo);
+        // Vérifier s'il y a une réservation en attente
+        const pendingReservation = localStorage.getItem('pendingReservation');
+        if (pendingReservation) {
+          router.push('/reservation');
         } else {
+          // Redirection vers la page d'accueil si pas de réservation en attente
           router.push('/');
         }
       } else {

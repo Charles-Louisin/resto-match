@@ -4,9 +4,11 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './reservation.module.css';
 import Navbar from '../../components/Navbar';
+import { useAuth } from '../../context/AuthContext';
 
 export default function Reservation() {
   const router = useRouter();
+  const { user } = useAuth();
   const [selectedDishes, setSelectedDishes] = useState([]);
   const [reservationType, setReservationType] = useState('surPlace');
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -31,6 +33,19 @@ export default function Reservation() {
     }
   }, []);
 
+  useEffect(() => {
+    // Vérifier s'il y a une réservation en attente après la connexion
+    const pendingReservation = localStorage.getItem('pendingReservation');
+    if (user && pendingReservation) {
+      const { formData: savedFormData, selectedDishes: savedDishes, reservationType: savedType } = JSON.parse(pendingReservation);
+      setFormData(savedFormData);
+      setSelectedDishes(savedDishes);
+      setReservationType(savedType);
+      setShowConfirmation(true);
+      localStorage.removeItem('pendingReservation');
+    }
+  }, [user]);
+
   const calculateSubtotal = () => {
     return selectedDishes.reduce((acc, item) => acc + (item.price * item.quantity), 0);
   };
@@ -51,10 +66,27 @@ export default function Reservation() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    if (!user) {
+      // Sauvegarder les données du formulaire
+      localStorage.setItem('pendingReservation', JSON.stringify({
+        formData,
+        selectedDishes,
+        reservationType
+      }));
+      router.push('/auth');
+      return;
+    }
+    
     setShowConfirmation(true);
   };
 
   const handleConfirmReservation = async () => {
+    if (!user) {
+      router.push('/login');
+      return;
+    }
+
     try {
       const reservationData = {
         ...formData,
@@ -62,7 +94,8 @@ export default function Reservation() {
         dishes: selectedDishes,
         totalAmount: calculateTotal(),
         status: 'pending',
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
+        userId: user.id
       };
 
       const response = await fetch('http://localhost:5000/api/reservations/new', {
@@ -93,6 +126,7 @@ export default function Reservation() {
         phone: ''
       });
       alert('Votre réservation a été confirmée avec succès !');
+      router.refresh();
     } catch (error) {
       console.error('Erreur lors de la réservation:', error.message);
       alert('Une erreur est survenue lors de la réservation. Veuillez réessayer.');
