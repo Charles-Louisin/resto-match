@@ -158,9 +158,25 @@ export default function FinancialManagement() {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="date" />
                 <YAxis />
-                <Tooltip />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '0.375rem',
+                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
+                  }}
+                  labelStyle={{
+                    color: '#4a5568',
+                    fontWeight: 500,
+                    marginBottom: '0.25rem'
+                  }}
+                  itemStyle={{
+                    color: '#2d3748',
+                    fontWeight: 600
+                  }}
+                />
                 <Legend />
-                <Line type="monotone" dataKey="revenue" stroke="#48bb78" name="Revenus" />
+                <Line type="monotone" dataKey="revenue" stroke="#4299e1" strokeWidth={2} />
                 <Line type="monotone" dataKey="expenses" stroke="#f56565" name="Dépenses" />
               </LineChart>
             </ResponsiveContainer>

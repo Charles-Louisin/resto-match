@@ -25,7 +25,7 @@ export default function StaffManagement() {
 
   const fetchStaff = async () => {
     try {
-      const response = await fetch('/api/management/staff', {
+      const response = await fetch('http://localhost:5000/api/management/staff', {
         headers: { 'x-auth-token': localStorage.getItem('token') }
       });
       const data = await response.json();
@@ -40,7 +40,7 @@ export default function StaffManagement() {
   const handleNewEmployeeSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/management/staff', {
+      const response = await fetch('http://localhost:5000/api/management/staff', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ export default function StaffManagement() {
 
   const handleUpdateEmployee = async (id, updates) => {
     try {
-      const response = await fetch(`/api/management/staff/${id}`, {
+      const response = await fetch(`http://localhost:5000/api/management/staff/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ export default function StaffManagement() {
     if (!confirm('Êtes-vous sûr de vouloir supprimer cet employé ?')) return;
 
     try {
-      const response = await fetch(`/api/management/staff/${id}`, {
+      const response = await fetch(`http://localhost:5000/api/management/staff/${id}`, {
         method: 'DELETE',
         headers: {
           'x-auth-token': localStorage.getItem('token')

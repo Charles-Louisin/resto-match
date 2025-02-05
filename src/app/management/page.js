@@ -16,7 +16,7 @@ import {
 import Link from 'next/link';
 import styles from './management.module.css';
 import Navbar from '../../components/Navbar';
-import { toast } from 'react-hot-toast';
+// import { toast } from 'react-hot-toast';
 
 const tooltipStyle = {
   contentStyle: {
