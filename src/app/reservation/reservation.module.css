@@ -74,8 +74,30 @@
   color: #2b6cb0;
 }
 
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.cancelButton {
+  flex: 1;
+  padding: 1rem;
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.cancelButton:hover {
+  background: #dc2626;
+}
+
 .submitButton {
-  width: 100%;
+  flex: 1;
   padding: 1rem;
   background: #48bb78;
   color: white;
@@ -269,29 +291,15 @@
   margin-top: 2rem;
 }
 
-.cancelButton,
 .confirmButton {
   flex: 1;
   padding: 0.75rem;
+  background: #48bb78;
+  border: none;
   border-radius: 0.5rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
-}
-
-.cancelButton {
-  background: white;
-  border: 1px solid #e2e8f0;
-  color: #4a5568;
-}
-
-.cancelButton:hover {
-  background: #f7fafc;
-}
-
-.confirmButton {
-  background: #48bb78;
-  border: none;
+  transition: background-color 0.2s;
   color: white;
 }
 

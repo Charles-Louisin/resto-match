@@ -230,9 +230,36 @@ export default function Reservation() {
               />
             </div>
 
-            <button type="submit" className={styles.submitButton}>
-              Confirmer la réservation
-            </button>
+            <div className={styles.formGroup}>
+              <div className={styles.buttonGroup}>
+                <button type="submit" className={styles.submitButton}>
+                  Réserver
+                </button>
+                <button
+                  type="button"
+                  className={styles.cancelButton}
+                  onClick={() => {
+                    setFormData({
+                      date: '',
+                      time: '',
+                      numberOfPeople: 1,
+                      address: '',
+                      specialRequests: '',
+                      name: '',
+                      email: '',
+                      phone: ''
+                    });
+                    setSelectedDishes([]);
+                    localStorage.removeItem('selectedDishes');
+                    localStorage.removeItem('cart');
+                    window.dispatchEvent(new Event('cartUpdated'));
+                  }}
+                >
+                  Annuler
+                </button>
+              </div>
+            </div>
+
           </form>
 
           <div className={styles.orderSummary}>

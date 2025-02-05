@@ -6,18 +6,17 @@ import Navbar from '../../../components/Navbar';
 
 export default function StaffManagement() {
   const [staff, setStaff] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [selectedRole, setSelectedRole] = useState('all');
   const [newEmployee, setNewEmployee] = useState({
     name: '',
     email: '',
-    role: 'server',
+    password: '',
+    role: 'staff',
+    salary: '',
     phone: '',
-    startDate: '',
-    schedule: 'full-time'
+    position: ''
   });
-
-  const roles = ['server', 'chef', 'manager', 'host', 'bartender'];
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   useEffect(() => {
     fetchStaff();
@@ -25,22 +24,26 @@ export default function StaffManagement() {
 
   const fetchStaff = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/management/staff', {
+      const response = await fetch('http://localhost:5000/api/staff', {
         headers: { 'x-auth-token': localStorage.getItem('token') }
       });
       const data = await response.json();
-      setStaff(data);
+      if (response.ok) {
+        setStaff(data);
+      }
     } catch (error) {
-      console.error('Error fetching staff:', error);
-    } finally {
-      setLoading(false);
+      console.error('Erreur:', error);
+      setError('Erreur lors de la récupération du personnel');
     }
   };
 
   const handleNewEmployeeSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setSuccess('');
+    
     try {
-      const response = await fetch('http://localhost:5000/api/management/staff', {
+      const response = await fetch('http://localhost:5000/api/staff', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -49,73 +52,41 @@ export default function StaffManagement() {
         body: JSON.stringify(newEmployee)
       });
 
-      if (response.ok) {
-        setNewEmployee({
-          name: '',
-          email: '',
-          role: 'server',
-          phone: '',
-          startDate: '',
-          schedule: 'full-time'
-        });
-        fetchStaff();
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.message || 'Erreur lors de l\'ajout de l\'employé');
       }
-    } catch (error) {
-      console.error('Error adding employee:', error);
-    }
-  };
 
-  const handleUpdateEmployee = async (id, updates) => {
-    try {
-      const response = await fetch(`http://localhost:5000/api/management/staff/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-auth-token': localStorage.getItem('token')
-        },
-        body: JSON.stringify(updates)
+      setSuccess('Employé ajouté avec succès');
+      setNewEmployee({
+        name: '',
+        email: '',
+        password: '',
+        role: 'staff',
+        salary: '',
+        phone: '',
+        position: ''
       });
-
-      if (response.ok) {
-        fetchStaff();
-      }
+      fetchStaff();
     } catch (error) {
-      console.error('Error updating employee:', error);
+      console.error('Erreur:', error);
+      setError(error.message);
     }
   };
-
-  const handleDeleteEmployee = async (id) => {
-    if (!confirm('Êtes-vous sûr de vouloir supprimer cet employé ?')) return;
-
-    try {
-      const response = await fetch(`http://localhost:5000/api/management/staff/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'x-auth-token': localStorage.getItem('token')
-        }
-      });
-
-      if (response.ok) {
-        fetchStaff();
-      }
-    } catch (error) {
-      console.error('Error deleting employee:', error);
-    }
-  };
-
-  const filteredStaff = staff.filter(employee => 
-    selectedRole === 'all' ? true : employee.role === selectedRole
-  );
 
   return (
-    <>
+    <div className={styles.container}>
       <Navbar />
-      <div className={styles.container}>
-        <h1>Gestion du Personnel</h1>
+      <div className={styles.content}>
+        <h1 className={styles.title}>Gestion du Personnel</h1>
+        
+        {error && <div className={styles.error}>{error}</div>}
+        {success && <div className={styles.success}>{success}</div>}
 
         <div className={styles.addEmployeeSection}>
-          <h2>Ajouter un Nouvel Employé</h2>
-          <form onSubmit={handleNewEmployeeSubmit} className={styles.addEmployeeForm}>
+          <h2 className={styles.subtitle}>Ajouter un employé</h2>
+          <form onSubmit={handleNewEmployeeSubmit} className={styles.form}>
             <div className={styles.formGroup}>
               <label htmlFor="name">Nom complet</label>
               <input
@@ -137,18 +108,27 @@ export default function StaffManagement() {
               />
             </div>
             <div className={styles.formGroup}>
-              <label htmlFor="role">Rôle</label>
-              <select
-                id="role"
-                value={newEmployee.role}
-                onChange={(e) => setNewEmployee({ ...newEmployee, role: e.target.value })}
-              >
-                {roles.map((role) => (
-                  <option key={role} value={role}>
-                    {role.charAt(0).toUpperCase() + role.slice(1)}
-                  </option>
-                ))}
-              </select>
+              <label htmlFor="password">Mot de passe</label>
+              <input
+                type="password"
+                id="password"
+                value={newEmployee.password}
+                onChange={(e) => setNewEmployee({ ...newEmployee, password: e.target.value })}
+                required
+                minLength={6}
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <label htmlFor="salary">Salaire</label>
+              <input
+                type="number"
+                id="salary"
+                value={newEmployee.salary}
+                onChange={(e) => setNewEmployee({ ...newEmployee, salary: parseFloat(e.target.value) })}
+                required
+                min="0"
+                step="0.01"
+              />
             </div>
             <div className={styles.formGroup}>
               <label htmlFor="phone">Téléphone</label>
@@ -161,26 +141,14 @@ export default function StaffManagement() {
               />
             </div>
             <div className={styles.formGroup}>
-              <label htmlFor="startDate">Date de début</label>
+              <label htmlFor="position">Poste</label>
               <input
-                type="date"
-                id="startDate"
-                value={newEmployee.startDate}
-                onChange={(e) => setNewEmployee({ ...newEmployee, startDate: e.target.value })}
+                type="text"
+                id="position"
+                value={newEmployee.position}
+                onChange={(e) => setNewEmployee({ ...newEmployee, position: e.target.value })}
                 required
               />
-            </div>
-            <div className={styles.formGroup}>
-              <label htmlFor="schedule">Type de contrat</label>
-              <select
-                id="schedule"
-                value={newEmployee.schedule}
-                onChange={(e) => setNewEmployee({ ...newEmployee, schedule: e.target.value })}
-              >
-                <option value="full-time">Temps plein</option>
-                <option value="part-time">Temps partiel</option>
-                <option value="seasonal">Saisonnier</option>
-              </select>
             </div>
             <button type="submit" className={styles.submitButton}>
               Ajouter l'employé
@@ -188,61 +156,27 @@ export default function StaffManagement() {
           </form>
         </div>
 
-        <div className={styles.staffSection}>
-          <div className={styles.filters}>
-            <button
-              className={`${styles.filterButton} ${selectedRole === 'all' ? styles.active : ''}`}
-              onClick={() => setSelectedRole('all')}
-            >
-              Tous
-            </button>
-            {roles.map((role) => (
-              <button
-                key={role}
-                className={`${styles.filterButton} ${selectedRole === role ? styles.active : ''}`}
-                onClick={() => setSelectedRole(role)}
-              >
-                {role.charAt(0).toUpperCase() + role.slice(1)}
-              </button>
+        <div className={styles.staffList}>
+          <h2 className={styles.subtitle}>Liste du Personnel</h2>
+          <div className={styles.staffGrid}>
+            {staff.map((employee) => (
+              <div key={employee._id} className={styles.staffCard}>
+                <div className={styles.staffInfo}>
+                  <h3>{employee.name}</h3>
+                  <p><strong>Email:</strong> {employee.email}</p>
+                  <p><strong>Téléphone:</strong> {employee.phone}</p>
+                  <p><strong>Poste:</strong> {employee.position}</p>
+                  <p><strong>Salaire:</strong> {employee.salary}€</p>
+                </div>
+                <div className={styles.staffActions}>
+                  <button className={styles.editButton}>Modifier</button>
+                  <button className={styles.deleteButton}>Supprimer</button>
+                </div>
+              </div>
             ))}
           </div>
-
-          {loading ? (
-            <div className={styles.loading}>Chargement du personnel...</div>
-          ) : (
-            <div className={styles.staffGrid}>
-              {filteredStaff.map((employee) => (
-                <div key={employee._id} className={styles.employeeCard}>
-                  <div className={styles.employeeHeader}>
-                    <h3>{employee.name}</h3>
-                    <span className={styles.role}>{employee.role}</span>
-                  </div>
-                  <div className={styles.employeeInfo}>
-                    <p><strong>Email:</strong> {employee.email}</p>
-                    <p><strong>Téléphone:</strong> {employee.phone}</p>
-                    <p><strong>Date de début:</strong> {new Date(employee.startDate).toLocaleDateString()}</p>
-                    <p><strong>Type de contrat:</strong> {employee.schedule}</p>
-                  </div>
-                  <div className={styles.employeeActions}>
-                    <button
-                      onClick={() => handleUpdateEmployee(employee._id, { active: !employee.active })}
-                      className={`${styles.statusButton} ${employee.active ? styles.active : ''}`}
-                    >
-                      {employee.active ? 'Actif' : 'Inactif'}
-                    </button>
-                    <button
-                      onClick={() => handleDeleteEmployee(employee._id)}
-                      className={styles.deleteButton}
-                    >
-                      Supprimer
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
         </div>
       </div>
-    </>
+    </div>
   );
 }

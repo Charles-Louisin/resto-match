@@ -173,17 +173,23 @@ export default function ManagementDashboard() {
         <div className={styles.quickActions}>
           <h2>Actions rapides</h2>
           <div className={styles.actionButtons}>
-            <Link href="/management/users" className={styles.actionButton}>
+            <Link href="/admin/users" className={styles.actionButton}>
               Gérer les utilisateurs
             </Link>
-            <Link href="/management/menu" className={styles.actionButton}>
+            <Link href="/personnel/menu" className={styles.actionButton}>
               Gérer le menu
             </Link>
-            <Link href="/management/reservations" className={styles.actionButton}>
+            <Link href="/personnel" className={styles.actionButton}>
               Voir les réservations
             </Link>
-            <Link href="/management/orders" className={styles.actionButton}>
+            <Link href="/personnel/orders" className={styles.actionButton}>
               Voir les commandes
+            </Link>
+            <Link href="/management/staff" className={styles.actionButton}>
+              Gérer le personnel
+            </Link>
+            <Link href="/management/finances" className={styles.actionButton}>
+              Finances
             </Link>
           </div>
         </div>
