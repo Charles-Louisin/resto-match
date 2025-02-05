@@ -195,12 +195,15 @@ export default function Personnel() {
             filteredReservations.map((reservation) => (
               <div key={reservation._id} className={styles.reservationCard}>
                 <div className={styles.cardHeader}>
-                  <h3>{reservation.customerName}</h3>
+                  <div className={styles.customerInfo}>
+                    <span className={styles.customerName}>Client:</span>
+                    <h3>{reservation.name}</h3>
+                  </div>
                   <span className={`${styles.status} ${getStatusColor(reservation.status)}`}>
                     {getStatusLabel(reservation.status)}
                   </span>
                 </div>
-                
+
                 <div className={styles.cardContent}>
                   <div className={styles.infoRow}>
                     <span className={styles.label}>Date :</span>
@@ -260,7 +263,7 @@ export default function Personnel() {
                         onClick={() => handleStatusChange(reservation._id, 'confirmed')}
                         className={styles.confirmButton}
                       >
-                        Confirmer
+                        {reservation.type === 'surPlace' ? 'Servi' : 'Livré'}
                       </button>
                       <button
                         onClick={() => handleStatusChange(reservation._id, 'cancelled')}

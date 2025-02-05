@@ -2,21 +2,37 @@
   "name": "resto-match",
   "version": "0.1.0",
   "private": true,
+  "description": "resto vitrine",
+  "main": "next.config.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Charles-Louisin/resto-match.git"
+  },
+  "author": "Charles Louisin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Charles-Louisin/resto-match/issues"
+  },
+  "homepage": "https://github.com/Charles-Louisin/resto-match#readme",
   "dependencies": {
-    "next": "15.0.2",
-    "react": "19.0.0-rc-02c0e824-20241028",
-    "react-dom": "19.0.0-rc-02c0e824-20241028",
-    "react-hot-toast": "^2.5.1",
-    "recharts": "^2.15.1"
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.19",
+    "@mui/material": "^5.14.20",
+    "next": "13.5.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "recharts": "^2.10.1"
   },
   "devDependencies": {
     "eslint": "^8",
-    "eslint-config-next": "15.0.2"
+    "eslint-config-next": "13.5.6"
   }
 }

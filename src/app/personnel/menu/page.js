@@ -4,11 +4,17 @@ import { useState, useEffect } from 'react';
 import styles from './menu.module.css';
 import { useAuth } from '../../../context/AuthContext';
 import Navbar from '../../../components/Navbar';
+import ImageDropzone from './ImageDropzone';
 
 export default function StaffMenu() {
   const { user } = useAuth();
   const [menuItems, setMenuItems] = useState([]);
-  const [categories] = useState(['Entrées', 'Plats', 'Desserts', 'Boissons']);
+  const categories = {
+    'Entrées': 'Entrées',
+    'Plats': 'Plats',
+    'Desserts': 'Desserts',
+    'Boissons': 'Boissons'
+  };
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -17,12 +23,14 @@ export default function StaffMenu() {
     description: '',
     price: 0,
     category: '',
+    image: '',
   });
   const [editingDish, setEditingDish] = useState({
     name: '',
     description: '',
     price: 0,
     category: '',
+    image: '',
   });
   const [currentItem, setCurrentItem] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -69,7 +77,8 @@ export default function StaffMenu() {
       name: item.name || '',
       description: item.description || '',
       price: item.price ? item.price.toString() : '0',
-      category: item.category || 'Plats',
+      category: item.category || '',
+      image: item.image || '',
     });
     setCurrentItem(item);
     setShowEditModal(true);
@@ -83,12 +92,14 @@ export default function StaffMenu() {
       description: '',
       price: 0,
       category: '',
+      image: '',
     });
     setEditingDish({
       name: '',
       description: '',
       price: 0,
       category: '',
+      image: '',
     });
     setCurrentItem(null);
   };
@@ -98,6 +109,12 @@ export default function StaffMenu() {
     try {
       if (!newDish.name || !newDish.description || !newDish.price || !newDish.category) {
         throw new Error('Données du formulaire manquantes');
+      }
+
+      // Vérifier la taille de l'image
+      let imageToSend = newDish.image;
+      if (imageToSend && imageToSend.length > 1024 * 1024) {
+        imageToSend = await compressImage(imageToSend);
       }
 
       const response = await fetch('http://localhost:5000/api/menu', {
@@ -111,12 +128,14 @@ export default function StaffMenu() {
           description: newDish.description,
           price: parseFloat(newDish.price),
           category: newDish.category,
+          image: imageToSend,
         })
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({ message: 'Erreur lors de la sauvegarde' }));
-        throw new Error(errorData.message || 'Erreur lors de la sauvegarde');
+        throw new Error(data.message || 'Erreur lors de la sauvegarde');
       }
 
       await fetchMenuItems();
@@ -134,6 +153,12 @@ export default function StaffMenu() {
         throw new Error('Données du formulaire manquantes');
       }
 
+      // Vérifier la taille de l'image
+      let imageToSend = editingDish.image;
+      if (imageToSend && imageToSend.length > 1024 * 1024) {
+        imageToSend = await compressImage(imageToSend);
+      }
+
       const response = await fetch(`http://localhost:5000/api/menu/${currentItem._id}`, {
         method: 'PUT',
         headers: {
@@ -145,12 +170,14 @@ export default function StaffMenu() {
           description: editingDish.description,
           price: parseFloat(editingDish.price),
           category: editingDish.category,
+          image: imageToSend,
         })
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({ message: 'Erreur lors de la sauvegarde' }));
-        throw new Error(errorData.message || 'Erreur lors de la sauvegarde');
+        throw new Error(data.message || 'Erreur lors de la sauvegarde');
       }
 
       await fetchMenuItems();
@@ -183,6 +210,40 @@ export default function StaffMenu() {
     }
   };
 
+  // Fonction pour compresser l'image
+  const compressImage = (base64String) => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Calculer les nouvelles dimensions
+        let width = img.width;
+        let height = img.height;
+        const maxSize = 800;
+        
+        if (width > height && width > maxSize) {
+          height = (height * maxSize) / width;
+          width = maxSize;
+        } else if (height > maxSize) {
+          width = (width * maxSize) / height;
+          height = maxSize;
+        }
+        
+        canvas.width = width;
+        canvas.height = height;
+        
+        // Dessiner l'image redimensionnée
+        ctx.drawImage(img, 0, 0, width, height);
+        
+        // Convertir en base64 avec compression
+        resolve(canvas.toDataURL('image/jpeg', 0.7));
+      };
+      img.src = base64String;
+    });
+  };
+
   if (!user || !['staff', 'admin'].includes(user.role)) {
     return (
       <div className={styles.unauthorized}>
@@ -208,7 +269,7 @@ export default function StaffMenu() {
             >
               Tous
             </button>
-            {categories.map((category) => (
+            {Object.keys(categories).map((category) => (
               <button
                 key={category}
                 className={`${styles.categoryButton} ${selectedCategory === category ? styles.active : ''}`}
@@ -241,6 +302,7 @@ export default function StaffMenu() {
               <h3>{item.name}</h3>
               <p className={styles.menuPrice}>{item.price} €</p>
               <p className={styles.menuDescription}>{item.description}</p>
+              <div className={styles.menuCategory}>{item.category}</div>
               {!item.available && (
                 <div className={styles.unavailableBadge}>Non disponible</div>
               )}
@@ -321,11 +383,19 @@ export default function StaffMenu() {
                     required
                   >
                     <option value="">Sélectionner une catégorie</option>
-                    <option value="entree">Entrée</option>
-                    <option value="plat">Plat principal</option>
-                    <option value="dessert">Dessert</option>
-                    <option value="boisson">Boisson</option>
+                    {Object.entries(categories).map(([value, label]) => (
+                      <option key={value} value={value}>
+                        {label}
+                      </option>
+                    ))}
                   </select>
+                </div>
+                <div className={styles.formGroup}>
+                  <label htmlFor="image">Photo du plat</label>
+                  <ImageDropzone
+                    onImageChange={(imageData) => setNewDish({ ...newDish, image: imageData })}
+                    currentImage={newDish.image}
+                  />
                 </div>
                 <div className={styles.modalFooter}>
                   <button
@@ -406,11 +476,19 @@ export default function StaffMenu() {
                     required
                   >
                     <option value="">Sélectionner une catégorie</option>
-                    <option value="entree">Entrée</option>
-                    <option value="plat">Plat principal</option>
-                    <option value="dessert">Dessert</option>
-                    <option value="boisson">Boisson</option>
+                    {Object.entries(categories).map(([value, label]) => (
+                      <option key={value} value={value}>
+                        {label}
+                      </option>
+                    ))}
                   </select>
+                </div>
+                <div className={styles.formGroup}>
+                  <label htmlFor="edit-image">Photo du plat</label>
+                  <ImageDropzone
+                    onImageChange={(imageData) => setEditingDish({ ...editingDish, image: imageData })}
+                    currentImage={editingDish.image}
+                  />
                 </div>
                 <div className={styles.modalFooter}>
                   <button
