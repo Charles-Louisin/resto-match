@@ -266,7 +266,7 @@ export default function Reservation() {
             <h2>Résumé de la commande</h2>
             {selectedDishes.length === 0 ? (
               <div className={styles.emptyOrder}>
-                <p>Vous n'avez pas encore sélectionné de plats.</p>
+                <p>Vous n&apos;avez pas encore sélectionné de plats.</p>
                 <button onClick={goToMenu} className={styles.menuButton}>
                   Choisir des plats
                 </button>

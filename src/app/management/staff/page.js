@@ -151,7 +151,7 @@ export default function StaffManagement() {
               />
             </div>
             <button type="submit" className={styles.submitButton}>
-              Ajouter l'employé
+              Ajouter l&apos;employé
             </button>
           </form>
         </div>

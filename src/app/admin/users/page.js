@@ -115,7 +115,7 @@ export default function UsersManagement() {
                 <h3>{user.name}</h3>
                 <p><strong>Email:</strong> {user.email}</p>
                 <p><strong>Rôle:</strong> {user.role}</p>
-                <p><strong>Date d'inscription:</strong> {new Date(user.createdAt).toLocaleDateString()}</p>
+                <p><strong>Date d&apos;inscription:</strong> {new Date(user.createdAt).toLocaleDateString()}</p>
               </div>
               <div className={styles.userActions}>
                 <select
@@ -137,7 +137,7 @@ export default function UsersManagement() {
             <div className={styles.modalOverlay} onClick={() => setShowUserModal(false)} />
             <div className={styles.modal}>
               <div className={styles.modalHeader}>
-                <h2 className={styles.modalTitle}>Détails de l'utilisateur</h2>
+                <h2 className={styles.modalTitle}>Détails de l&apos;utilisateur</h2>
                 <button
                   className={styles.closeButton}
                   onClick={() => setShowUserModal(false)}
@@ -150,12 +150,12 @@ export default function UsersManagement() {
                   <h3>{selectedUser.name}</h3>
                   <p><strong>Email:</strong> {selectedUser.email}</p>
                   <p><strong>Rôle:</strong> {selectedUser.role}</p>
-                  <p><strong>Date d'inscription:</strong> {new Date(selectedUser.createdAt).toLocaleDateString()}</p>
+                  <p><strong>Date d&apos;inscription:</strong> {new Date(selectedUser.createdAt).toLocaleDateString()}</p>
                   {selectedUser.phone && <p><strong>Téléphone:</strong> {selectedUser.phone}</p>}
                 </div>
 
                 <div className={styles.userOrders}>
-                  <h3 className={styles.userOrdersTitle}>Commandes de l'utilisateur</h3>
+                  <h3 className={styles.userOrdersTitle}>Commandes de l&apos;utilisateur</h3>
                   {userOrders.length > 0 ? (
                     <div className={styles.ordersList}>
                       {userOrders.map((order) => (
