@@ -54,16 +54,16 @@ export default function FinancialManagement() {
   const fetchFinancialData = async () => {
     try {
       const [statsRes, revenueRes, expensesRes, categoryRes] = await Promise.all([
-        fetch(`http://localhost:5000/api/management/finances/stats?timeframe=${timeframe}`, {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/management/finances/stats?timeframe=${timeframe}`, {
           headers: { 'x-auth-token': localStorage.getItem('token') }
         }),
-        fetch(`http://localhost:5000/api/management/finances/revenue?timeframe=${timeframe}`, {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/management/finances/revenue?timeframe=${timeframe}`, {
           headers: { 'x-auth-token': localStorage.getItem('token') }
         }),
-        fetch(`http://localhost:5000/api/management/finances/expenses?timeframe=${timeframe}`, {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/management/finances/expenses?timeframe=${timeframe}`, {
           headers: { 'x-auth-token': localStorage.getItem('token') }
         }),
-        fetch(`http://localhost:5000/api/management/finances/categories?timeframe=${timeframe}`, {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/management/finances/categories?timeframe=${timeframe}`, {
           headers: { 'x-auth-token': localStorage.getItem('token') }
         })
       ]);

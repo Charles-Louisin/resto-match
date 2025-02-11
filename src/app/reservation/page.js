@@ -98,7 +98,7 @@ export default function Reservation() {
         userId: user.id
       };
 
-      const response = await fetch('http://localhost:5000/api/reservations/new', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/reservations/new`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

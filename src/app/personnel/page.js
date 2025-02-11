@@ -26,7 +26,7 @@ export default function Personnel() {
   const fetchReservations = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5000/api/reservations', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/reservations`, {
         method: 'GET',
         headers: {
           'x-auth-token': localStorage.getItem('token')
@@ -50,7 +50,7 @@ export default function Personnel() {
 
   const handleStatusChange = async (reservationId, newStatus) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/reservations/${reservationId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/reservations/${reservationId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

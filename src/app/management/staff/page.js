@@ -24,7 +24,7 @@ export default function StaffManagement() {
 
   const fetchStaff = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/staff', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/staff`, {
         headers: { 'x-auth-token': localStorage.getItem('token') }
       });
       const data = await response.json();
@@ -43,7 +43,7 @@ export default function StaffManagement() {
     setSuccess('');
     
     try {
-      const response = await fetch('http://localhost:5000/api/staff', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/staff`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

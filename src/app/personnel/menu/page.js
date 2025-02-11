@@ -44,7 +44,7 @@ export default function StaffMenu() {
 
   const fetchMenuItems = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/menu', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/menu`, {
         headers: {
           'Content-Type': 'application/json',
           'x-auth-token': localStorage.getItem('token')
@@ -117,7 +117,7 @@ export default function StaffMenu() {
         imageToSend = await compressImage(imageToSend);
       }
 
-      const response = await fetch('http://localhost:5000/api/menu', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/menu`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -159,7 +159,7 @@ export default function StaffMenu() {
         imageToSend = await compressImage(imageToSend);
       }
 
-      const response = await fetch(`http://localhost:5000/api/menu/${currentItem._id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/menu/${currentItem._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -191,7 +191,7 @@ export default function StaffMenu() {
   const handleDelete = async (id) => {
     if (window.confirm('Êtes-vous sûr de vouloir supprimer cet élément ?')) {
       try {
-        const response = await fetch(`http://localhost:5000/api/menu/${id}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/menu/${id}`, {
           method: 'DELETE',
           headers: {
             'x-auth-token': localStorage.getItem('token')

@@ -17,7 +17,7 @@ export default function UsersManagement() {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/admin/users', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/users`, {
         headers: {
           'x-auth-token': localStorage.getItem('token')
         }
@@ -31,7 +31,7 @@ export default function UsersManagement() {
 
   const fetchUserOrders = async (userId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/admin/users/${userId}/orders`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/users/${userId}/orders`, {
         headers: {
           'x-auth-token': localStorage.getItem('token')
         }
@@ -51,7 +51,7 @@ export default function UsersManagement() {
 
   const handleRoleChange = async (userId, newRole) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/admin/users/${userId}/role`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/users/${userId}/role`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

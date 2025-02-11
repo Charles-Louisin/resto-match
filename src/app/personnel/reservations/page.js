@@ -15,7 +15,7 @@ export default function ReservationsManagement() {
 
   const fetchReservations = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/reservations/all', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/reservations/all`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
@@ -33,7 +33,7 @@ export default function ReservationsManagement() {
 
   const updateStatus = async (id, newStatus) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/reservations/${id}/status`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/reservations/${id}/status`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

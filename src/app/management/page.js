@@ -54,7 +54,7 @@ export default function ManagementDashboard() {
       const token = localStorage.getItem('token');
       
       // Fetch stats
-      const statsResponse = await fetch('http://localhost:5000/api/admin/stats', {
+      const statsResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/stats`, {
         headers: {
           'x-auth-token': token
         }
@@ -65,7 +65,7 @@ export default function ManagementDashboard() {
       setStats(statsData);
 
       // Fetch revenue data
-      const revenueResponse = await fetch('http://localhost:5000/api/admin/revenue', {
+      const revenueResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/revenue`, {
         headers: {
           'x-auth-token': token
         }
@@ -76,7 +76,7 @@ export default function ManagementDashboard() {
       setRevenueData(revenueData);
 
       // Fetch order data
-      const orderResponse = await fetch('http://localhost:5000/api/admin/orders', {
+      const orderResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/orders`, {
         headers: {
           'x-auth-token': token
         }
