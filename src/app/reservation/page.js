@@ -127,6 +127,7 @@ export default function Reservation() {
       });
       alert('Votre réservation a été confirmée avec succès !');
       router.refresh();
+      window.location.reload();
     } catch (error) {
       console.error('Erreur lors de la réservation:', error.message);
       alert('Une erreur est survenue lors de la réservation. Veuillez réessayer.');

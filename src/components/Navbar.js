@@ -11,6 +11,7 @@ export default function Navbar() {
   const { user, logout } = useAuth();
   const router = useRouter();
   const [cartCount, setCartCount] = useState(0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     updateCartCount();
@@ -26,41 +27,62 @@ export default function Navbar() {
   const handleLogout = () => {
     logout();
     router.push("/");
+    setIsMobileMenuOpen(false);
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
   };
 
   return (
     <nav className={styles.navbar}>
       <div className={styles.navContent}>
-        {/* Logo/Nom de l'app à gauche */}
-        <Link href="/" className={styles.logo}>
-          Resto-Match
-        </Link>
+      <Link href="/" className={styles.logo1}>
+      Resto-Match
+      </Link>
+        <div className={styles.mobileHeader}>
+          <Link href="/" className={styles.logo} onClick={closeMobileMenu}>
+            Resto-Match
+          </Link>
+          <button 
+            className={`${styles.mobileMenuButton} ${isMobileMenuOpen ? styles.open : ''}`}
+            onClick={toggleMobileMenu}
+            aria-label="Menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
 
-        {/* Navigation au centre */}
-        <div className={styles.navLinks}>
-          <Link href="/menu" className={styles.navLink}>
+        <div className={`${styles.navLinks} ${isMobileMenuOpen ? styles.mobileMenuOpen : ''}`}>
+          <Link href="/menu" className={styles.navLink} onClick={closeMobileMenu}>
             Menu
           </Link>
-          <Link href="/reservation" className={styles.navLink}>
+          <Link href="/reservation" className={styles.navLink} onClick={closeMobileMenu}>
             Réservations
           </Link>
 
           {["staff", "admin"].includes(user?.role) && (
             <>
-              <Link href="/personnel" className={styles.navLink}>
+              <Link href="/personnel" className={styles.navLink} onClick={closeMobileMenu}>
                 Personnel
               </Link>
-              <Link href="/personnel/menu" className={styles.navLink}>
+              <Link href="/personnel/menu" className={styles.navLink} onClick={closeMobileMenu}>
                 Gestion Menu
               </Link>
             </>
           )}
           {user?.role === "admin" && (
-            <Link href="/management" className={styles.navLink}>
+            <Link href="/management" className={styles.navLink} onClick={closeMobileMenu}>
               Administration
             </Link>
           )}
-          <Link href="/panier" className={styles.cartLink}>
+          <Link href="/panier" className={styles.cartLink} onClick={closeMobileMenu}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className={styles.cartIcon}
@@ -69,15 +91,13 @@ export default function Navbar() {
             >
               <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
             </svg>
-            {/* Panier */}
             {cartCount > 0 && (
               <span className={styles.cartBadge}>{cartCount}</span>
             )}
           </Link>
         </div>
 
-        {/* Authentification à droite */}
-        <div className={styles.authSection}>
+        <div className={`${styles.authSection} ${isMobileMenuOpen ? styles.mobileMenuOpen : ''}`}>
           {user ? (
             <div className={styles.userSection}>
               <UserAvatar name={user.name} title={user.name} />
@@ -99,7 +119,7 @@ export default function Navbar() {
               </button>
             </div>
           ) : (
-            <Link href="/auth" className={styles.authButton}>
+            <Link href="/auth" className={styles.authButton} onClick={closeMobileMenu}>
               Se connecter
             </Link>
           )}

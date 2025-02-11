@@ -139,7 +139,7 @@ export default function ManagementDashboard() {
         <div className={styles.statsGrid}>
           <div className={styles.statCard}>
             <div className={styles.statLabel}>Revenus totaux</div>
-            <div className={styles.statValue}>{stats.revenue.total}€</div>
+            <div className={styles.statValue}>{stats.revenue.total} FCFA</div>
             <div className={`${styles.statChange} ${stats.revenue.change >= 0 ? styles.positive : styles.negative}`}>
               {stats.revenue.change >= 0 ? '↑' : '↓'} {Math.abs(stats.revenue.change)}%
             </div>
