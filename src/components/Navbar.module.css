@@ -7,6 +7,7 @@
   padding: 1rem 2rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 1000;
+  height: var(--navbar-height);
 }
 
 .navContent {
@@ -91,12 +92,13 @@
 .cartIcon {
   width: 1.5rem;
   height: 1.5rem;
+  position: relative;
 }
 
 .cartBadge {
   position: absolute;
-  top: -5px;
-  right: -5px;
+  top: -8px;
+  right: -8px;
   background-color: #e53e3e;
   color: white;
   font-size: 0.75rem;
@@ -106,6 +108,11 @@
   text-align: center;
   font-weight: 500;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+
+.cartLink:hover {
+  background-color: #f7fafc;
 }
 
 .authSection {
@@ -190,6 +197,7 @@
 @media (max-width: 768px) {
   .navbar {
     padding: 0 1rem;
+    height: var(--navbar-height-mobile);
   }
 
   .mobileHeader {
@@ -214,6 +222,7 @@
   }
 
   .navLinks.mobileMenuOpen {
+    background-color: #fff;
     display: flex;
   }
 
@@ -226,6 +235,13 @@
   .cartLink {
     width: 100%;
     justify-content: center;
+    position: relative;
+    padding: 1rem;
+  }
+
+  .cartBadge {
+    top: 0;
+    right: calc(50% - 30px);
   }
 
   .authSection {

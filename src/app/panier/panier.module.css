@@ -2,6 +2,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+  padding-top: 5rem;
   min-height: 100vh;
   background-color: #f7fafc;
 }
@@ -203,10 +204,17 @@
 @media (max-width: 768px) {
   .container {
     padding: 1rem;
+    padding-top: 5rem;
   }
 
-  .cartContent {
+  /* .cartContent {
     grid-template-columns: 1fr;
+  } */
+  .cartContent {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    /* align-items: start; */
   }
 
   .cartSummary {

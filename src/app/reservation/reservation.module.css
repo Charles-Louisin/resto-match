@@ -308,6 +308,9 @@
 }
 
 @media (max-width: 768px) {
+  .container {
+    padding-top: 4rem;
+  }
   .reservationContent {
     grid-template-columns: 1fr;
   }

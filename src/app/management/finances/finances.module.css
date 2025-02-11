@@ -213,6 +213,7 @@
 @media (max-width: 768px) {
   .container {
     padding: 1rem;
+    padding-top: 5rem;
   }
 
   .statsGrid {
