@@ -207,7 +207,7 @@ export default function Personnel() {
                 <div className={styles.cardContent}>
                   <div className={styles.infoRow}>
                     <span className={styles.label}>Date :</span>
-                    <span>{formatDate(reservation.date)} à {reservation.time}</span>
+                    <span>{formatDate(reservation.date)} pour {reservation.time}</span>
                   </div>
                   <div className={styles.infoRow}>
                     <span className={styles.label}>Type :</span>
@@ -238,13 +238,13 @@ export default function Personnel() {
                         {reservation.dishes.map((dish, index) => (
                           <div key={index} className={styles.dishItem}>
                             <span>{dish.quantity}x {dish.name}</span>
-                            <span>{dish.price.toFixed(2)}€</span>
+                            <span>{dish.price.toFixed(2)} FCFA</span>
                           </div>
                         ))}
                       </div>
                       <div className={styles.totalAmount}>
                         <span className={styles.label}>Total :</span>
-                        <span>{reservation.totalAmount.toFixed(2)}€</span>
+                        <span>{reservation.totalAmount.toFixed(2)} FCFA</span>
                       </div>
                     </div>
                   )}

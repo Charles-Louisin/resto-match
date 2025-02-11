@@ -300,7 +300,7 @@ export default function StaffMenu() {
             )}
             <div className={styles.menuInfo}>
               <h3>{item.name}</h3>
-              <p className={styles.menuPrice}>{item.price} €</p>
+              <p className={styles.menuPrice}>{item.price} FCFA</p>
               <p className={styles.menuDescription}>{item.description}</p>
               <div className={styles.menuCategory}>{item.category}</div>
               {!item.available && (
@@ -363,7 +363,7 @@ export default function StaffMenu() {
                   />
                 </div>
                 <div className={styles.formGroup}>
-                  <label htmlFor="price">Prix (€)</label>
+                  <label htmlFor="price">Prix (FCFA)</label>
                   <input
                     type="number"
                     id="price"
@@ -456,7 +456,7 @@ export default function StaffMenu() {
                   />
                 </div>
                 <div className={styles.formGroup}>
-                  <label htmlFor="edit-price">Prix (€)</label>
+                  <label htmlFor="edit-price">Prix (FCFA)</label>
                   <input
                     type="number"
                     id="edit-price"

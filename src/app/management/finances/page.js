@@ -87,7 +87,7 @@ export default function FinancialManagement() {
   const formatCurrency = (value) => {
     return new Intl.NumberFormat('fr-FR', {
       style: 'currency',
-      currency: 'EUR'
+      currency: 'XAF'
     }).format(value);
   };
 

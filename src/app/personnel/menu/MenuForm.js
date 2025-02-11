@@ -185,7 +185,7 @@ export default function MenuForm({ onSubmit, initialData, isEditing }) {
             </div>
             <div className={styles.formRow}>
               <div className={styles.formGroup}>
-                <label htmlFor="price">Prix (€)</label>
+                <label htmlFor="price">Prix (XAF)</label>
                 <input
                   type="number"
                   id="price"
