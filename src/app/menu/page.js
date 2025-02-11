@@ -148,7 +148,7 @@ export default function Menu() {
                   <div className={styles.itemHeader}>
                     <h3 className={styles.itemName}>{item.name}</h3>
                     <p className={styles.itemPrice}>
-                      {item.price.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}
+                      {item.price.toLocaleString('fr-FR', { style: 'currency', currency: 'XAF' })}
                     </p>
                   </div>
                   <p className={styles.itemDescription}>{item.description}</p>

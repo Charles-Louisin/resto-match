@@ -41,11 +41,9 @@ export default function Navbar() {
           <Link href="/menu" className={styles.navLink}>
             Menu
           </Link>
-          {user && (
-            <Link href="/reservation" className={styles.navLink}>
-              Réservations
-            </Link>
-          )}
+          <Link href="/reservation" className={styles.navLink}>
+            Réservations
+          </Link>
 
           {["staff", "admin"].includes(user?.role) && (
             <>

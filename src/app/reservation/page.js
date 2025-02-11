@@ -315,7 +315,7 @@ export default function Reservation() {
                         <span className={styles.dishQuantity}>x{dish.quantity}</span>
                       </div>
                       <span className={styles.dishPrice}>
-                        {(dish.price * dish.quantity).toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}
+                        {(dish.price * dish.quantity).toLocaleString('fr-FR', { style: 'currency', currency: 'XAF' })}
                       </span>
                     </div>
                   ))}
@@ -324,15 +324,15 @@ export default function Reservation() {
                 <div className={styles.summaryDetails}>
                   <div className={styles.summaryLine}>
                     <span>Sous-total</span>
-                    <span>{calculateSubtotal().toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}</span>
+                    <span>{calculateSubtotal().toLocaleString('fr-FR', { style: 'currency', currency: 'XAF' })}</span>
                   </div>
                   <div className={styles.summaryLine}>
                     <span>{reservationType === 'livraison' ? 'Frais de livraison' : 'Frais de table'}</span>
-                    <span>{(reservationType === 'livraison' ? DELIVERY_FEE : TABLE_FEE).toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}</span>
+                    <span>{(reservationType === 'livraison' ? DELIVERY_FEE : TABLE_FEE).toLocaleString('fr-FR', { style: 'currency', currency: 'XAF' })}</span>
                   </div>
                   <div className={styles.totalLine}>
                     <span>Total</span>
-                    <span>{calculateTotal().toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}</span>
+                    <span>{calculateTotal().toLocaleString('fr-FR', { style: 'currency', currency: 'XAF' })}</span>
                   </div>
                 </div>
               </>
@@ -366,7 +366,7 @@ export default function Reservation() {
                     selectedDishes.map(dish => (
                       <div key={dish._id} className={styles.modalDishItem}>
                         <span>{dish.name} x{dish.quantity}</span>
-                        <span>{(dish.price * dish.quantity).toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}</span>
+                        <span>{(dish.price * dish.quantity).toLocaleString('fr-FR', { style: 'currency', currency: 'XAF' })}</span>
                       </div>
                     ))
                   ) : (
@@ -376,7 +376,7 @@ export default function Reservation() {
 
                 <div className={styles.modalTotal}>
                   <span>Montant total</span>
-                  <span>{calculateTotal().toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}</span>
+                  <span>{calculateTotal().toLocaleString('fr-FR', { style: 'currency', currency: 'XAF' })}</span>
                 </div>
               </div>
               <div className={styles.modalActions}>

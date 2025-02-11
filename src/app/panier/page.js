@@ -86,7 +86,7 @@ export default function Panier() {
                 <div className={styles.itemInfo}>
                   <h3>{item.name}</h3>
                   <p className={styles.itemPrice}>
-                    {item.price.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}
+                    {item.price.toLocaleString('fr-FR', { style: 'currency', currency: 'XAF' })}
                   </p>
                 </div>
                 <div className={styles.itemActions}>
@@ -117,7 +117,7 @@ export default function Panier() {
             <h2>Résumé de la commande</h2>
             <div className={styles.totalAmount}>
               <span>Total</span>
-              <span>{total.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}</span>
+              <span>{total.toLocaleString('fr-FR', { style: 'currency', currency: 'XAF' })}</span>
             </div>
             <button 
               onClick={handleReservation}

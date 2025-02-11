@@ -15,7 +15,7 @@ export default function Home() {
               Une expérience culinaire unique au cœur de la ville
             </p>
             <div className={styles.cta}>
-              <Link href="/reservations" className={styles.button}>
+              <Link href="/reservation" className={styles.button}>
                 Réserver une table
               </Link>
               <Link href="/menu" className={styles.buttonOutline}>
